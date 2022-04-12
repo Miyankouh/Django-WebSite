@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 
+
 # Create your views here.
 
 days = {
@@ -13,6 +14,18 @@ days = {
     'Thursday': 'this is Thursday in dictionary',
     'friday': 'this is friday in dictionary',
 }
+
+
+def days_list(request):
+    days_list = list(days.keys())
+    list_item = " "
+
+    for day in days_list:
+        url_path = reverse('days-of-week', args=[day])
+        list_item += f'<li> <a href="{url_path}"> {day} </a> </li>\n'
+
+    content =  f'<ul> {list_item} </ul>' 
+    return HttpResponse(content)
 
 
 def dynamic_days_by_number(request, day):
@@ -27,5 +40,6 @@ def dynamic_days_by_number(request, day):
 def dynamic_days(request, day):
     day_data = days.get(day)
     if day_data is not None:
-        return HttpResponse(f"day is : {day} and data is : {day_data} ")
+        response_data = f'<h1 style="color:black;" >day is : {day} and data is : {day_data}</h1>'
+        return HttpResponse(response_data)
     return HttpResponseNotFound('day is not exist')
