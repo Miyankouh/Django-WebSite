@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    days
+{% endblock  %}
+{% block content %}
+    {% include "challenges/includes/header.html" with active_page="days_list" %}
+    <ul>
+        {% for day in days %}
+            <li>
+                <a href="{% url 'days-of-week' day %}"> {{ day | title }} </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% block footer_refrances %}
+        <script>
+            console.log('hello')
+        </script>
+    {% endblock  %}
+
+{% endblock %}
+    
+
+

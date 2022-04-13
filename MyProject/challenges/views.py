@@ -11,34 +11,28 @@ days = {
     'tuesday': 'this is tuesday in dictionary',
     'wednesday': 'this is wednesday in dictionary',
     'Thursday': 'this is Thursday in dictionary',
-    'friday': 'this is friday in dictionary',
+    'friday': None,
 }
 
 
 def dynamic_days(request, day):
     day_data = days.get(day)
-    if day_data is not None:
-        context = {
-            "data": day_data,
-            "day": f"selected day is {day}",
-        }
-        # DTL -> django Template language 
-        return render(request, 'challenges/challenge.html', context)
-    return HttpResponseNotFound('day is not exist')
-
-
+    
+    context = {
+        "data": day_data,
+        "day": f"selected day is {day}",
+    }
+    # DTL -> django Template language 
+    return render(request, 'challenges/challenge.html', context)
 
 
 def days_list(request):
     days_list = list(days.keys())
-    list_item = " "
-
-    for day in days_list:
-        url_path = reverse('days-of-week', args=[day])
-        list_item += f'<li> <a href="{url_path}"> {day} </a> </li>\n'
-
-    content =  f'<ul> {list_item} </ul>' 
-    return HttpResponse(content)
+    context = {
+        'days': days_list,
+    }
+    
+    return render(request, 'challenges/index.html', context)
 
 
 def dynamic_days_by_number(request, day):
