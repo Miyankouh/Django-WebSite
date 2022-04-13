@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block page_title %}
     days
 {% endblock  %}
+
+{% block header_refrances %}
+    <link rel="stylesheet" href="{% static 'challenges/challenges.css' %}">
+{% endblock  %}
+
+
 {% block content %}
     {% include "challenges/includes/header.html" with active_page="days_list" %}
     <ul>

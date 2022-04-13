@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.http import Http404, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
-
+from django.template.loader import render_to_string
 # Create your views here.
 
 days = {
@@ -18,6 +18,10 @@ days = {
 def dynamic_days(request, day):
     day_data = days.get(day)
     
+    if day_data is  None:
+        raise Http404()
+        # response_data = render_to_string('404.html')
+        # return HttpResponseNotFound(response_data)
     context = {
         "data": day_data,
         "day": f"selected day is {day}",
