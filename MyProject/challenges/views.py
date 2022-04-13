@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
-from django.template.loader import render_to_string
 
 # Create your views here.
 
@@ -14,6 +13,20 @@ days = {
     'Thursday': 'this is Thursday in dictionary',
     'friday': 'this is friday in dictionary',
 }
+
+
+def dynamic_days(request, day):
+    day_data = days.get(day)
+    if day_data is not None:
+        context = {
+            "data": day_data,
+            "day": f"selected day is {day}",
+        }
+        # DTL -> django Template language 
+        return render(request, 'challenges/challenge.html', context)
+    return HttpResponseNotFound('day is not exist')
+
+
 
 
 def days_list(request):
@@ -35,11 +48,3 @@ def dynamic_days_by_number(request, day):
     redirect_day = days_names[day - 1]
     redirect_url = reverse('days-of-week', args=[redirect_day]) # /days/ ...
     return HttpResponseRedirect(redirect_url)
-
-
-def dynamic_days(request, day):
-    day_data = days.get(day)
-    if day_data is not None:
-        response_data = render_to_string('challenges/challenge.html')
-        return HttpResponse(response_data)
-    return HttpResponseNotFound('day is not exist')
