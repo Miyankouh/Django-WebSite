@@ -8,36 +8,22 @@
 
 
 {% block title %}
-    title of post
+    {{post.title | title }}
 {% endblock  %}
 
 {% block content %}
     <section id='summary'>
-        <h2>post title</h2>
+        <h2>{{post.title}}</h2>
         <article>
-            <img src="{% static 'blog/images/django.png' %}" alt="post image alt">
-            <address> By Miynkouh </address>
+            <img src="{% static 'blog/images/'|add:post.image %}" alt="post image alt">
+            <address> By {{post.author}} </address>
             <div>
                 last updated on 
-                <time> 2022 14 April  </time>
+                <time> {{post.date|date:'d M Y'}}  </time>
             </div>
         </article>
     </section>
     <main>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, . Odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam
-            scelerisque fermentum. Lorem ipsum dolor sit amet. Dolorelerisque. Dignissim sodales ut eu sem integer vitae justo eget magna. 
-             Nec feugiat in fermentum posuere urna nec tincidunt. Frt tortor pretium viverra. Eu nisl nunc mi ipsum faucibus vitae .</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, . Odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam
-            scelerisque fermentum. Lorem ipsum dolor sit amet. Dolorelerisque. Dignissim sodales ut eu sem integer vitae justo eget magna. 
-             Nec feugiat in fermentum posuere urna nec tincidunt. Frt tortor pretium viverra. Eu nisl nunc mi ipsum faucibus vitae .</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, . Odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. 
-            scelerisque fermentum. Lorem ipsum dolor sit amet. Dolorelerisque. Dignissim sodales ut eu sem integer vitae justo eget magna. 
-            Nec feugiat in fermentum posuere urna nec tincidunt. Fri tortor pretium viverra. Eu nisl nunc mi ipsum faucibus vitae aliquet. </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, . Odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. 
-            scelerisque fermentum. Lorem ipsum dolor sit amet. Dolorelerisque. Dignissim sodales ut eu sem integer vitae justo eget magna. 
-            Nec feugiat in fermentum posuere urna nec tincidunt. Fri tortor pretium viverra. Eu nisl nunc mi ipsum faucibus vitae aliquet. </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, . Odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam
-            scelerisque fermentum. Lorem ipsum dolor sit amet. Dolorelerisque. Dignissim sodales ut eu sem integer vitae justo eget magna. 
-            Nec feugiat in fermentum posuere urna nec tincidunt. Fri tortor pretium viverra. Eu nisl nunc mi ipsum faucibus vitae </p>
+        {{post.content| linebreaks}}
     </main>
 {% endblock  %}

@@ -11,9 +11,28 @@ all_posts = [
         'date': date(2022, 2, 10),
         'short_description': 'this is django course in toplearn from zero to hero',
         'content': """
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
+            Lorem ipsum dolor sit amet,
+             consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
             perspiciatis quod soluta veritatis? Alias atque ducimus facere odit pariatur! Alias, aspernatur consequuntur
             deleniti est fugit officiis porro quia saepe tenetur, veniam veritatis voluptatem voluptatum?
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
+            perspiciatis quod soluta veritatis?
+             Alias atque ducimus facere odit pariatur! Alias, aspernatur consequuntur
+            deleniti est fugit officiis porro quia saepe tenetur, veniam veritatis voluptatem voluptatum?
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
+            perspiciatis quod soluta
+             veritatis? Alias atque ducimus facere odit pariatur! Alias, aspernatur consequuntur
+            deleniti est fugit officiis porro quia saepe tenetur, veniam veritatis voluptatem voluptatum?
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
+            perspiciatis quod soluta
+             veritatis? Alias atque ducimus facere odit pariatur! Alias, aspernatur consequuntur
+            deleniti est fugit officiis porro quia saepe tenetur, veniam veritatis voluptatem voluptatum?
+            Lorem ipsum dolor sit amet,
+             consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
+            perspiciatis quod soluta veritatis? Alias atque ducimus facere odit pariatur! Alias, aspernatur consequuntur
+            deleniti est fugit officiis
+             porro quia saepe tenetur, veniam veritatis voluptatem voluptatum?
+
         """
     },
     {
@@ -24,9 +43,19 @@ all_posts = [
         'date': date(2022, 3, 11),
         'short_description': 'this is django course in toplearn from zero to hero',
         'content': """
+            Lorem ipsum dolor sit amet,
+             consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
+            perspiciatis quod soluta veritatis? Alias atque ducimus facere odit pariatur! Alias, aspernatur consequuntur
+            deleniti est fugit officiis porro quia saepe tenetur,
+             veniam veritatis voluptatem voluptatum?
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
+            perspiciatis quod soluta
+             veritatis? Alias atque ducimus facere odit pariatur! Alias, aspernatur consequuntur
+            deleniti est fugit officiis porro quia saepe tenetur, veniam veritatis voluptatem voluptatum?
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
             perspiciatis quod soluta veritatis? Alias atque ducimus facere odit pariatur! Alias, aspernatur consequuntur
             deleniti est fugit officiis porro quia saepe tenetur, veniam veritatis voluptatem voluptatum?
+
         """
     },
     {
@@ -37,9 +66,31 @@ all_posts = [
         'date': date(2022, 4, 14),
         'short_description': 'this is django course in toplearn from zero to hero',
         'content': """
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
+            perspiciatis quod soluta veritatis? Alias atque ducimus facere odit pariatur! Alias, aspernatur consequuntur
+            deleniti est fugit officiis porro quia saepe tenetur, veniam veritatis voluptatem voluptatum?   
             perspiciatis quod soluta veritatis? Alias atque ducimus facere odit pariatur! Alias, aspernatur consequuntur
             deleniti est fugit officiis porro quia saepe tenetur, veniam veritatis voluptatem voluptatum?
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
+            perspiciatis quod soluta veritatis? Alias atque
+             ducimus facere odit pariatur! Alias, aspernatur consequuntur
+            deleniti est fugit officiis porro quia saepe tenetur, veniam veritatis voluptatem voluptatum?
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
+            deleniti est fugit officiis porro quia saepe tenetur, veniam veritatis voluptatem voluptatum?
+            perspiciatis quod soluta veritatis? Alias atque
+             ducimus facere odit pariatur! Alias, aspernatur consequuntur
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
+            perspiciatis quod soluta veritatis? Alias atque
+             ducimus facere odit pariatur! Alias, aspernatur consequuntur
+            deleniti est fugit officiis porro quia saepe tenetur, veniam veritatis voluptatem voluptatum?
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
+            perspiciatis quod soluta veritatis? Alias atque
+             ducimus facere odit pariatur! Alias, aspernatur consequuntur
+            deleniti est fugit officiis porro quia saepe tenetur, veniam veritatis voluptatem voluptatum?
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aliquid dicta, eius eos eum eveniet
+            perspiciatis quod soluta veritatis? Alias atque
+             ducimus facere odit pariatur! Alias, aspernatur consequuntur
+            deleniti est fugit officiis porro quia saepe tenetur, veniam veritatis voluptatem voluptatum?
+
         """
     },
 ]
@@ -58,8 +109,14 @@ def index(request):
 
 
 def posts(request):
-    return render(request, 'blog/all-posts.html')
+    context = {
+        'all_posts': all_posts
+    }
+    return render(request, 'blog/all-posts.html', context)
 
 
 def single_post(request, slug):
-    return render(request, 'blog/post-detail.html')
+    post = next(post for post in all_posts if post['slug']==slug)
+    return render(request, 'blog/post-detail.html', {
+        'post':post
+        })
