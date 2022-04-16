@@ -10,10 +10,16 @@
 
             <li >
                  <a href="{{ product.get_absolute_url }}">
-                   {{product.title}} {{produt.title}} / price: {{produt.price}}
+                   {{product.title}} / price: {{product.price}}
                 </a>
             </li>
         {% endfor %}
-        
     </ul>
+    <hr>
+    <p>
+        number of products : {{total_number_of_products}}
+    </p>
+    <p>
+        avarege rating of product rating : {{avareg_ratings.rating__avg}}
+    </p>
 {% endblock  %}
