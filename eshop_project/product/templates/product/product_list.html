@@ -6,8 +6,13 @@
 
 {% block content %}
     <ul>
-        {% for produt in products %}
-            <li > <a href="#">{{produt.title}} / price: {{produt.price}}</a></li>
+        {% for product in products %}
+
+            <li >
+                 <a href="{{ product.get_absolute_url }}">
+                   {{product.title}} {{produt.title}} / price: {{produt.price}}
+                </a>
+            </li>
         {% endfor %}
         
     </ul>
