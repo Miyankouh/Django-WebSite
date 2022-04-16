@@ -11,12 +11,12 @@ class ProductCategory(models.Model):
     url_title = models.CharField(max_length=300, verbose_name='عنوان در url')
 
     def __str__(self):
-        return self.title
+        return f"( {self.title} - {self.url_title})"
 
 
 class Product(models.Model):
     title = models.CharField(max_length=100)
-    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, null=True)
+    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, null=True, related_name='products')
     price = models.IntegerField()
     rating = models.IntegerField(validators=[MinValueValidator(1),
                                              MaxValueValidator(5)], default=0)
