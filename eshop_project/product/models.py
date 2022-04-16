@@ -14,7 +14,7 @@ class Product(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(5)], default=0)
     short_description = models.CharField(max_length=200, null=True)
     is_active = models.BooleanField(default=False)
-    slug = models.SlugField(default='', null=False, db_index=True)
+    slug = models.SlugField(default='', null=False, db_index=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('product-detail', args=[self.slug])
