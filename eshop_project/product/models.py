@@ -4,6 +4,15 @@ from django.urls import reverse
 from django.utils.text import slugify
 
 # Create your models here.
+class ProductTag(models.Model):
+    tag = models.CharField(max_length=300, verbose_name='تگ')
+
+    def __str__(self):
+        return self.tag
+
+    class Meta:
+        verbose_name = 'تگ محصول'
+        verbose_name_plural ='تگ های محصولات'
 
 
 class ProductCategory(models.Model):
@@ -44,6 +53,7 @@ class Product(models.Model):
         null=True,
         related_name='products', 
         verbose_name='دسته بندی')
+    product_tags = models.ManyToManyField(ProductTag, verbose_name='تگ های محصول')
     price = models.IntegerField(verbose_name='قیمت')
     rating = models.IntegerField(validators=[MinValueValidator(1),
                                              MaxValueValidator(5)], default=0, verbose_name='امتیاز')
