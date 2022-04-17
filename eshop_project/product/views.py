@@ -6,12 +6,10 @@ from django.db.models import Avg, Min, Max
 # Create your views here.
 
 def product_list(request):
-    products = Product.objects.all().order_by('title')
-    number_of_prodoucts = products.count()
-
+    products = Product.objects.all().order_by('-price')[:5]
     return render(request, 'product/product_list.html', {
         'products': products,
-        'total_number_of_products': number_of_prodoucts,
+    
     })
 
 
