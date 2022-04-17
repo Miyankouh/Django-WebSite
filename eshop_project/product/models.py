@@ -13,6 +13,10 @@ class ProductCategory(models.Model):
     def __str__(self):
         return f"( {self.title} - {self.url_title})"
 
+    class Meta:
+        verbose_name = 'دسته بندی'
+        verbose_name_plural = 'دسته بندی ها'
+
 
 class ProductInformation(models.Model):
     color = models.CharField(max_length=200, verbose_name='رنگ')
@@ -20,6 +24,11 @@ class ProductInformation(models.Model):
 
     def __str__(self):
         return f"{self.size} - {self.color}"
+    
+    class Meta:
+        verbose_name = ' اطلاعات تکمیلی'
+        verbose_name_plural = ' تمامی اطلاعات تکمیلی '
+
 
 
 class Product(models.Model):
@@ -35,12 +44,12 @@ class Product(models.Model):
         null=True,
         related_name='products', 
         verbose_name='دسته بندی')
-    price = models.IntegerField()
+    price = models.IntegerField(verbose_name='قیمت')
     rating = models.IntegerField(validators=[MinValueValidator(1),
-                                             MaxValueValidator(5)], default=0)
-    short_description = models.CharField(max_length=200, null=True)
-    is_active = models.BooleanField(default=False)
-    slug = models.SlugField(default='', null=False, db_index=True, blank=True)
+                                             MaxValueValidator(5)], default=0, verbose_name='امتیاز')
+    short_description = models.CharField(max_length=200, null=True, verbose_name='توضیح کوتاه')
+    is_active = models.BooleanField(default=False, verbose_name='فعال بودن')
+    slug = models.SlugField(default='', null=False, db_index=True, blank=True, verbose_name='')
 
     def get_absolute_url(self):
         return reverse('product-detail', args=[self.slug])
@@ -51,3 +60,8 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.price})"
+    
+    class Meta:
+        verbose_name = ' محصول'
+        verbose_name_plural = '  محصول ها'
+
