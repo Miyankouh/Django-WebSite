@@ -14,9 +14,27 @@ class ProductCategory(models.Model):
         return f"( {self.title} - {self.url_title})"
 
 
+class ProductInformation(models.Model):
+    color = models.CharField(max_length=200, verbose_name='رنگ')
+    size = models.CharField(max_length=200, verbose_name='اندازه')
+
+    def __str__(self):
+        return f"{self.size} - {self.color}"
+
+
 class Product(models.Model):
     title = models.CharField(max_length=100)
-    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, null=True, related_name='products')
+    productinformation = models.OneToOneField(
+        ProductInformation, on_delete=models.CASCADE,
+        related_name='product_information',
+        verbose_name='اطلاعات تکمیلی',
+        null=True, blank=True)
+    category = models.ForeignKey(
+        ProductCategory,
+        on_delete=models.CASCADE, 
+        null=True,
+        related_name='products', 
+        verbose_name='دسته بندی')
     price = models.IntegerField()
     rating = models.IntegerField(validators=[MinValueValidator(1),
                                              MaxValueValidator(5)], default=0)
