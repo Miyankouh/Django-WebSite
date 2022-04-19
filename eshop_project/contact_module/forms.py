@@ -44,5 +44,32 @@ class ContactUsModelForm(forms.ModelForm):
     class Meta:
         model = ContactUs
         fields = ['full_name', 'email', 'title', 'message']
-        # fields = '__all__'
-        # exclude = ['responce']
+        widgets = {
+            'full_name': forms.TextInput(attrs={
+                'class': 'form-control'
+                }),
+            'email': forms.TextInput(attrs={
+                'class': 'form-control'
+                }),
+            'title': forms.TextInput(attrs={
+                'class': 'form-control'
+                }),
+            'message': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': '5',
+                'id': 'message' 
+                })
+        }
+
+        labels = {
+            'full_name': 'نام و نام خانوادگی شما',
+            'email': 'ایمیل شما',
+            'title': 'موضوع', 
+            'message': 'پیام شما'
+        }
+
+        errors = {
+            'full_name':{
+                'required': 'نام و نام خانوتدگی صحیح نمیباشد'
+            }
+        }
