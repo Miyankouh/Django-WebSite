@@ -1,4 +1,5 @@
 from django import forms
+from .models import ContactUs
 
 
 class ContactUsForm(forms.Form):
@@ -21,14 +22,14 @@ class ContactUsForm(forms.Form):
             'placeholder': 'ایمیل'
         })
     )
-    subject = forms.CharField(
+    title = forms.CharField(
         label="عنوان",
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': 'موضوع'
         })
     )
-    text = forms.CharField(
+    message = forms.CharField(
         label="متن پیام",
         widget=forms.Textarea(attrs={
             'class': 'form-control',
@@ -37,3 +38,11 @@ class ContactUsForm(forms.Form):
             'id': 'message'
         })
     )
+
+
+class ContactUsModelForm(forms.ModelForm):
+    class Meta:
+        model = ContactUs
+        fields = ['full_name', 'email', 'title', 'message']
+        # fields = '__all__'
+        # exclude = ['responce']

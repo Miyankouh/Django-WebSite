@@ -14,7 +14,7 @@ class ContactUs(models.Model):
     response = models.TextField(
         verbose_name='متن پاسخ تماس با ما', null=True, blank=True)
     is_read_by_admin = models.BooleanField(
-        verbose_name='خوانده شده توسط ادمین')
+        verbose_name='خوانده شده توسط ادمین', default=False)
 
     class Meta:
         verbose_name = 'تماس با ما'
