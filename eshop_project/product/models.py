@@ -40,7 +40,12 @@ class Product(models.Model):
         ProductCategory,
         related_name='product_categories',
         verbose_name='دسته بندی ها')
-    brand = models.ForeignKey(ProductBrand, on_delete=models.CASCADE, verbose_name='برند', null=True, blank=True)
+    brand = models.ForeignKey(
+                ProductBrand,
+                on_delete=models.CASCADE,
+                verbose_name='برند',
+                null=True, blank=True
+    )
     price = models.IntegerField(verbose_name='قیمت')
     short_description = models.TextField(
         null=True, db_index=True, verbose_name='توضیح کوتاه')
@@ -48,8 +53,15 @@ class Product(models.Model):
         null=True,  db_index=True, verbose_name='توضیح اصلی')
     is_active = models.BooleanField(
         default=False, verbose_name='فعال / غیر فعال')
-    slug = models.SlugField(default='', null=False, db_index=True, blank=True,
-                            max_length=255, unique=True, verbose_name='عنوان در url')
+    slug = models.SlugField(
+        default='',
+        null=False,
+        db_index=True,
+        blank=True,
+        max_length=255,
+        unique=True,
+        verbose_name='عنوان در url'
+    )
     is_delete = models.BooleanField(verbose_name='حذف شده / نشده')
 
     def get_absolute_url(self):
