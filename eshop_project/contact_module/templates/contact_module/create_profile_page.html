@@ -15,8 +15,7 @@
                     <div class="status alert alert-success" style="display: none"></div>
                     <form id="main-contact-form" class="contact-form row" action="{% url 'create_profile_page' %}" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <input type='file' name='image'>
-                        
+                        {{ form }}
                         <div class="form-group col-md-12">
                             <button type="submit" class="btn btn-primary pull-right">ارسـال</button>
                         </div>
