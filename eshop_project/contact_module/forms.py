@@ -35,7 +35,3 @@ class ContactUsModelForm(forms.ModelForm):
                 'required': 'نام و نام خانوتدگی صحیح نمیباشد'
             }
         }
-
-
-class ProfileForm(forms.Form):
-    user_image = forms.FileField()
