@@ -40,6 +40,7 @@ class Product(models.Model):
         ProductCategory,
         related_name='product_categories',
         verbose_name='دسته بندی ها')
+    image = models.ImageField(upload_to='images/products', null=True, blank=True, verbose_name='تصویر محصول')
     brand = models.ForeignKey(
                 ProductBrand,
                 on_delete=models.CASCADE,
