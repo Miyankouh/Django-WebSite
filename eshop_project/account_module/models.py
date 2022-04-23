@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class User(AbstractUser):
-    mobile = models.CharField(max_length=255, verbose_name='تلفن همراه')
+    avatar = models.CharField(max_length=255, verbose_name='تصویر اواتار', null=True, blank=True)
     email_active_code = models.CharField(max_length=150, verbose_name='کد فعال سازی ایمیل')
 
     class Meta:
