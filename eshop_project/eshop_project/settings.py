@@ -37,9 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #internal apps
+    'account_module',
     'product',
     'home_module',
     'contact_module',
+    #external apps
     'django_render_partial',
 ]
 
@@ -78,6 +81,9 @@ WSGI_APPLICATION = 'eshop_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+
+AUTH_USER_MODEL = 'account_module.User'
 
 DATABASES = {
     'default': {
