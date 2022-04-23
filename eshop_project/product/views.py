@@ -8,11 +8,8 @@ class ProductListView(ListView):
     template_name = 'product/product_list.html'
     model = Product
     context_object_name = 'products'
-
-    # def get_queryset(self):
-    #     base_query = super(ProductListView, self).get_queryset()
-    #     data = base_query.filter(is_active=True)
-    #     return data
+    ordering = ['-price']
+    paginate_by = 6
 
 
 class ProductDetailView(DetailView):
