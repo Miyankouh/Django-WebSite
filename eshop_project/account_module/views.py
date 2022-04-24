@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
-from django.views.generic.base import View
-from .models import User
 from django.urls import reverse
+from django.views import View
+from .models import User
 from django.utils.crypto import get_random_string
-from account_module.forms import RegisterForm, LoginForm
-from django.http import Http404, HttpResponse
-from django.contrib.auth import login, logout 
+from django.http import Http404, HttpRequest
+from django.contrib.auth import login, logout
+from account_module.forms import RegisterForm, LoginForm, ForgotPasswordForm, ResetPasswordForm
 
 
 class RegisterView(View):
@@ -68,7 +68,7 @@ class LoginView(View):
         } 
         return render(request, 'account_module/login.html', context)
 
-    def post(self, request: HttpResponse):
+    def post(self, request: HttpRequest):
         login_form = LoginForm(request.POST)
 
         if login_form.is_valid():
@@ -92,3 +92,38 @@ class LoginView(View):
             'login_form': login_form
         } 
         return render(request, 'account_module/login.html', context)
+
+
+class ForgetPassword(View):
+    def get(self, request: HttpRequest):
+        forget_pass_form = ForgetPasswordForm()
+        context ={
+            'forget_pass_form': forget_pass_form
+        }
+        return render(request, 'account_module/forgot_password.html', context)
+
+    def post(self, request: HttpRequest):
+        forget_pass_form = ForgetPasswordForm(request.POST)
+        if forget_pass_form.is_valid():
+            user_email = forget_pass_form.cleaned_data.get('email')
+            user : User = user.objects.filter(email__iexact=user_email).first()
+            if user is not None:
+                # send reset password to user 
+                pass
+
+        context ={
+            'forget_pass_form': forget_pass_form
+        }
+        return render(request, 'account_module/forgot_password.html', context)
+
+
+class ResetPassword(View):
+    def get(self, request: HttpRequest, active_code):
+        user: User = User.objects.filter(email_active_code__iexact=active_code).first()
+        if user is None:
+            return redirect(reverse('login_page'))
+
+        reset_pass_form = ResetPasswordForm()
+
+        context = {'reset_pass_form': reset_pass_form}
+        return render(request, 'account_module/reset_password.html', context)
