@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'home_module',
     'contact_module',
     'site_module',
+    'article_module',
     #external apps
     'django_render_partial',
 ]
