@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 
 class SiteSetting(models.Model):
     site_name = models.CharField(max_length=255, verbose_name='نام سایت')
@@ -14,6 +13,7 @@ class SiteSetting(models.Model):
     site_logo = models.ImageField(upload_to='images/site_setting/', verbose_name='لوگوی سایت')
     is_main_setting = models.BooleanField(verbose_name='تنظیمات اصلی')
 
+    # The meta class is for displaying the title in the admin panel
     class Meta:
         verbose_name = 'تنضیمات سایت '
         verbose_name_plural = ' تنظیمات'
@@ -25,6 +25,7 @@ class SiteSetting(models.Model):
 class FooterLinkBox(models.Model):
     title = models.CharField(max_length=255, verbose_name='عنوان')
 
+    # The meta class is for displaying the title in the admin panel
     class Meta:
         verbose_name = 'دسته بندی لینک های فوتر'
         verbose_name_plural = 'دسته بندی های لینک های فوتر'
@@ -38,6 +39,7 @@ class FooterLink(models.Model):
     url = models.URLField(max_length=250 , verbose_name='لینک')
     footer_link_box = models.ForeignKey(to=FooterLinkBox, on_delete=models.CASCADE, verbose_name='دسته بندی')
 
+    # The meta class is for displaying the title in the admin panel
     class Meta:
         verbose_name = '  لینک  فوتر'
         verbose_name_plural = '   لینک های فوتر'
@@ -54,6 +56,7 @@ class Slider(models.Model):
     image = models.ImageField(upload_to='images/sliders', verbose_name='تصویر اسلایدر')
     is_active = models.BooleanField(default=True, verbose_name='فعال / غیر فعال')
 
+    # The meta class is for displaying the title in the admin panel
     class Meta:
         verbose_name ='اسلایدر'
         verbose_name_plural = 'اسلایدر ها'

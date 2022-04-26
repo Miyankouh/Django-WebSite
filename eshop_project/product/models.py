@@ -2,8 +2,6 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 
-# Create your models here.
-
 
 class ProductCategory(models.Model):
     title = models.CharField(
@@ -26,6 +24,7 @@ class ProductBrand(models.Model):
         max_length=300, verbose_name='نام برند', db_index=True)
     is_active = models.BooleanField(verbose_name='فعال / غیر فعال')
 
+    # The meta class is for displaying the title in the admin panel
     class Meta:
         verbose_name = 'برند'
         verbose_name_plural = 'برند ها'
@@ -75,6 +74,7 @@ class Product(models.Model):
     def __str__(self):
         return f"{self.title} ({self.price})"
 
+    # The meta class is for displaying the title in the admin panel
     class Meta:
         verbose_name = ' محصول'
         verbose_name_plural = '  محصول ها'
@@ -89,6 +89,7 @@ class ProductTag(models.Model):
     def __str__(self):
         return self.caption
 
+    # The meta class is for displaying the title in the admin panel
     class Meta:
         verbose_name = 'تگ محصول'
         verbose_name_plural = 'تگ های محصولات'
