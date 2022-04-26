@@ -1,4 +1,5 @@
 {% extends 'shared/_layout.html' %}
+{% load thumbnail %}
 
 {% block title %} لیست مقالات {% endblock  %}
 
@@ -30,7 +31,10 @@
                             </span>
                         </div>
                         <a href="">
-                            <img src="{{ article.image.url}}" alt="">
+                            
+                            {% thumbnail article.image "862x398" crop='center' qulity=98 as im %}
+                                <img src="{{ im.url }}">
+                            {% endthumbnail %}
                         </a>
                         <p>{{article.short_description}}</p>
                         <a class="btn btn-primary" href="">ادامـه مطلب</a>
