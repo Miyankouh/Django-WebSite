@@ -25,7 +25,7 @@ class Article(models.Model):
     short_description = models.TextField(verbose_name='توضیحات کوتاه')
     text = models.TextField(verbose_name='متن مقاله')
     is_active = models.BooleanField(default=True, verbose_name='فعال / غیر فعال')
-    selected_category = models.ManyToManyField(ArticleCategory, verbose_name='دسته بندی ها')
+    selected_categories = models.ManyToManyField(ArticleCategory, verbose_name='دسته بندی ها')
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='نویسنده', null=True, editable=False)
     created_date = models.DateTimeField(auto_now_add=True, editable=False, verbose_name='تاریخ ثبت')
 

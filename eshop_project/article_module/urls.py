@@ -3,5 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.ArticleListView.as_view(), name='articles_list')
+    path('', views.ArticleListView.as_view(), name='articles_list'),
+    path('cat/<str:category>', views.ArticleListView.as_view(), name='articles_by_category_list')
 ]
