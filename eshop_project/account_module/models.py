@@ -3,9 +3,10 @@ from django.db import models
 
 
 class User(AbstractUser):
-    avatar = models.CharField(max_length=255, verbose_name='تصویر اواتار', null=True, blank=True)
+    avatar = models.ImageField(upload_to='images/profile', verbose_name='تصویر اواتار', null=True, blank=True)
     email_active_code = models.CharField(max_length=150, verbose_name='کد فعال سازی ایمیل')
-
+    about_user = models.TextField(null=True, blank=True, verbose_name='درباره شخص')
+    
     # The meta class is for displaying the title in the admin panel
     class Meta:
         verbose_name = 'کاربر'
