@@ -27,7 +27,5 @@ function fillParentId(parentId) {
     document.getElementById('comment_form').scrollIntoView({behavior: 'smooth'});
 }
 
-
-
 //  ajax => asynchronous javascript and xml
 //  json => javascript object notation
