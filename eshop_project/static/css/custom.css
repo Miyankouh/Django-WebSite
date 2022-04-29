@@ -9,3 +9,8 @@
 ul{
     padding-right: 0 !important;
 }
+
+#use-image{
+    width: 100%;
+    height: 200px;
+}
