@@ -13,14 +13,15 @@
         <div class="row">
             
             <div class="col-sm-9 padding-right">
-                <div class="features_items"><!--features_items-->
-                    <h2 class="title text-center">محصولات </h2>
+               {% if products %}
+               <div class="features_items"><!--features_items-->
+                <h2 class="title text-center">محصولات </h2>
 
-                    {% for product in products  %}
-                        {% include 'includes/product_item_partiales.html' with product=product%}
-                    {% endfor %}
+                {% for product in products  %}
+                    {% include 'includes/product_item_partiales.html' with product=product%}
+                {% endfor %}
 
-                    <div class="clearfix"></div>
+                <div class="clearfix"></div>
                     <ul class="pagination">    
                         {% if page_obj.has_previous %}
                         <li>
@@ -42,24 +43,22 @@
 
                     </ul>
                 </div><!--features_items-->
+               {% else %}
+                    <div class="alert alert-warning" >
+                        <p>هیچ محصولی یافت نشد!</p>
+                    </div>
+               {% endif %}
             </div>
             
             <div class="col-sm-3">
                 <div class="left-sidebar">
-                    
+                <!--category-productsr-->    
                 {% render_partial 'product.views.product_categories_component' %}
-                    <div class="brands_products"><!--brands_products-->
-                        <h2>برنـد ها</h2>
-                        <div class="brands-name">
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href=""> <span class="pull-left">(50)</span>برنـد 1</a></li>
-                                <li><a href=""> <span class="pull-left">(56)</span>برنـد 2</a></li>
-                                <li><a href=""> <span class="pull-left">(27)</span>برنـد 3</a></li>
-                                <li><a href=""> <span class="pull-left">(32)</span>برنـد 4</a></li>
-                                <li><a href=""> <span class="pull-left">(5)</span>برنـد 5</a></li>
-                            </ul>
-                        </div>
-                    </div><!--/brands_products-->
+                <!--/category-productsr-->
+
+                <!--brands_products-->
+                {% render_partial 'product.views.product_brands_component' %}
+                <!--/brands_products-->
                     
                     <div class="price-range"><!--price-range-->
                         <h2>فیلتـر قیمـت</h2>

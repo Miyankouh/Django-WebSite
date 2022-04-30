@@ -22,6 +22,7 @@ class ProductCategory(models.Model):
 class ProductBrand(models.Model):
     title = models.CharField(
         max_length=300, verbose_name='نام برند', db_index=True)
+    url_title = models.CharField(max_length=300, verbose_name='نام در url', db_index=True)
     is_active = models.BooleanField(verbose_name='فعال / غیر فعال')
 
     # The meta class is for displaying the title in the admin panel
