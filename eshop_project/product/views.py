@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic.base import TemplateView, View
+from django.http import HttpRequest
+from django.shortcuts import render, redirect
+from django.views.generic.base import  View
 from django.views.generic import ListView, DetailView
-from .models import Product
+from .models import Product, ProductCategory
 
 
 class ProductListView(ListView):
@@ -10,6 +11,14 @@ class ProductListView(ListView):
     context_object_name = 'products'
     ordering = ['-price']
     paginate_by = 6
+
+    # For use in multiple views
+    def get_queryset(self):
+        query = super(ProductListView, self).get_queryset()
+        category_name = self.kwargs.get('cat')
+        if category_name is not None:
+            query = query.filter(category__url_title__iexact=category_name)
+        return query
 
 
 class ProductDetailView(DetailView):
@@ -31,3 +40,11 @@ class AddProductFavorite(View):
         product = Product.objects.get(pk=product_id)
         request.session["product_favorites"] = product_id
         return redirect(product.get_absolute_url())
+
+
+def product_categories_component(request: HttpRequest):
+    product_categories = ProductCategory.objects.filter(is_active=True, is_delete=False)
+    context = {
+        'categories': product_categories
+    }
+    return render(request, 'product/components/product_category_components.html', context)

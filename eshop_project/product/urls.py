@@ -2,10 +2,9 @@ from django.urls import path
 from product import views
 
 urlpatterns = [
-    # path('', views.product_list, name='product-list'),
     path('', views.ProductListView.as_view(), name='product-list'),
-    # path('<slug:slug>', views.product_detail, name='product-detail'),
+    path('category/<cat>', views.ProductListView.as_view(), name='product-categories-list'),
     path('product-favorite', views.AddProductFavorite.as_view(), name='product-favorite'),
     path('<slug:slug>', views.ProductDetailView.as_view(), name='product-detail'),
-    # path('<int:pk>', views.ProductDetailView.as_view(), name='product-detail'),
+    
 ]
