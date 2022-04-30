@@ -3,6 +3,7 @@ from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.views.generic.base import  View
 from django.views.generic import ListView, DetailView
+from requests import request
 from .models import Product, ProductBrand, ProductCategory
 
 
@@ -13,11 +14,31 @@ class ProductListView(ListView):
     ordering = ['-price']
     paginate_by = 6
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ProductListView, self).get_context_data()
+        query = Product.objects.all()
+        produtc: Product = query.order_by('-price').first()
+        db_max_price = produtc.price if produtc is not None else 0
+        context['db_max_price'] = db_max_price 
+        context['start_price'] = self.request.GET.get('start_price') or 0
+        context['end_price'] = self.request.GET.get('end_price') or db_max_price
+        return context
+
+
     # For use in multiple views
     def get_queryset(self):
         query = super(ProductListView, self).get_queryset()
         category_name = self.kwargs.get('cat')
         brand_name = self.kwargs.get('brand')
+        request: HttpRequest = self.request
+        start_price = request.GET.get('start_price')
+        end_price = request.GET.get('end_price')
+
+        if start_price is not None:
+            query = query.filter(price__gte=start_price)
+        
+        if end_price is not None:
+            query = query.filter(price__lte=end_price)
 
         if brand_name is not None:
             query = query.filter(brand__url_title__iexact=brand_name)
