@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from django.db import models
 
 
@@ -64,3 +65,22 @@ class Slider(models.Model):
     def __str__(self):
         return self.title
         
+
+class SiteBanner(models.Model):
+    class SiteBannerPosition(models.TextChoices):
+        product_list = 'product_list', 'صفحه لیست محصولات',
+        product_detail = 'product_detail', 'صفحه ی جزییات محصولات',
+        about_us = 'about_us', 'درباره ما'
+
+    title = models.CharField(max_length=200, verbose_name='عنوان بنر')
+    url = models.URLField(max_length=400, null=True, blank=True, verbose_name='ادرس بنر')
+    image = models.ImageField(upload_to='images/banner', verbose_name='تصویر بنر')
+    is_active = models.BooleanField(verbose_name='فعال / غیر فعال')
+    position = models.CharField(max_length=200, choices=SiteBannerPosition.choices, verbose_name='جایگاه نمایش')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'بنر تبلیغاتی'
+        verbose_name_plural = 'بنرهای تبلیغاتی'

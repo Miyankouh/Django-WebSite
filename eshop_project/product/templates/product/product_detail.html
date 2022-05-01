@@ -398,6 +398,15 @@
                     <!--brands_products-->
                     {% render_partial 'product.views.product_brands_component' %}
                     <!--/brands_products-->
+                    <div class="shipping text-center"><!--shipping-->
+                        {% for banner in banners %}
+                        <a href="{{ banner.url }}">
+                            <img src="{{ banner.image.url }}" alt="">
+                        </a>
+                    {% endfor %}
+                    <br>
+                    <br>
+                    </div><!--/shipping-->
                 </div>
             </div>
             

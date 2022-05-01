@@ -84,7 +84,13 @@
                         </form>
                     </div>
                     <div class="shipping text-center"><!--shipping-->
-                        <img src="images/home/shipping.jpg" alt="">
+                        {% for banner in banners %}
+                        <a href="{{ banner.url }}">
+                            <img src="{{ banner.image.url }}" alt="">
+                        </a>
+                    {% endfor %}
+                    <br>
+                    <br>
                     </div><!--/shipping-->
                     
                 </div>
