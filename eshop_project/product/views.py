@@ -1,13 +1,12 @@
+from tokenize import group
 from django.db.models import Count
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.views.generic.base import  View
 from django.views.generic import ListView, DetailView
 from requests import request
-
 from site_module.models import SiteBanner
 from .models import Product, ProductBrand, ProductCategory
-
 
 class ProductListView(ListView):
     template_name = 'product/product_list.html'
@@ -17,7 +16,6 @@ class ProductListView(ListView):
     paginate_by = 4
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        print('context_data')
         context = super(ProductListView, self).get_context_data()
         query = Product.objects.all()
         product: Product = query.order_by('-price').first()
@@ -30,7 +28,6 @@ class ProductListView(ListView):
 
     # For use in multiple views
     def get_queryset(self):
-        print('query_set')
         query = super(ProductListView, self).get_queryset()
         category_name = self.kwargs.get('cat')
         brand_name = self.kwargs.get('brand')
