@@ -12,14 +12,15 @@ class ProductListView(ListView):
     model = Product
     context_object_name = 'products'
     ordering = ['-price']
-    paginate_by = 6
+    paginate_by = 1
 
     def get_context_data(self, *, object_list=None, **kwargs):
+        print('context_data')
         context = super(ProductListView, self).get_context_data()
         query = Product.objects.all()
-        produtc: Product = query.order_by('-price').first()
-        db_max_price = produtc.price if produtc is not None else 0
-        context['db_max_price'] = db_max_price 
+        product: Product = query.order_by('-price').first()
+        db_max_price = product.price if product is not None else 0
+        context['db_max_price'] = db_max_price
         context['start_price'] = self.request.GET.get('start_price') or 0
         context['end_price'] = self.request.GET.get('end_price') or db_max_price
         return context
@@ -27,22 +28,22 @@ class ProductListView(ListView):
 
     # For use in multiple views
     def get_queryset(self):
+        print('query_set')
         query = super(ProductListView, self).get_queryset()
         category_name = self.kwargs.get('cat')
         brand_name = self.kwargs.get('brand')
         request: HttpRequest = self.request
         start_price = request.GET.get('start_price')
         end_price = request.GET.get('end_price')
-
         if start_price is not None:
             query = query.filter(price__gte=start_price)
-        
+
         if end_price is not None:
             query = query.filter(price__lte=end_price)
 
         if brand_name is not None:
             query = query.filter(brand__url_title__iexact=brand_name)
-        
+
         if category_name is not None:
             query = query.filter(category__url_title__iexact=category_name)
         return query

@@ -1,13 +1,13 @@
 {% extends 'shared/_layout.html' %}
 {% load render_partial %}
 
+
 {% block title %}
     لیست محصولات
 {% endblock  %}
 
 
 {% block content %}
-
 <section>
     <div class="container">
         <div class="row">
@@ -25,19 +25,19 @@
                     <ul class="pagination">    
                         {% if page_obj.has_previous %}
                         <li>
-                            <a href="?page={{ page_obj.previous_page_number}}">قبلی</a>
+                            <a class="cursor-pointer" onclick="fillPage({{page_obj.previous_page_number}})">قبلی</a>
                         </li>
                         {% endif %}
 
                         {% for pageNumber in paginator.page_range %}
                             <li class="{% if page_obj.number == pageNumber %}active{% endif %}">
-                                <a href="?page={{ pageNumber}}">{{pageNumber}}</a>
+                                <a class="cursor-pointer" onclick="fillPage({{ pageNumber }})">{{ pageNumber }}</a>
                             </li>
                         {% endfor %}
 
                         {% if page_obj.has_next %}
                         <li>
-                            <a href="?page={{ page_obj.next_page_number}}">بعدی</a>
+                            <a class="cursor-pointer" onclick="fillPage({{ page_obj.next_page_number }})">بعدی</a>
                         </li>
                         {% endif %}
 
@@ -66,7 +66,7 @@
                          <input 
                             type="text" 
                             class="span2"
-                            value="" 
+                            value="{{start_price}}, {{end_price}}" 
                             data-slider-min="0" 
                             data-slider-max="{{db_max_price}}"  
                             data-slider-step="5" 
@@ -75,14 +75,20 @@
                          <b>{{db_max_price}}</b> <b class="pull-left">0</b>
                     </div>
                 </div><!--/price-range-->
-                    
+                    <div>
+                        <form action="" method="get" id="filter_form">
+                            <input type="hidden" name="page" id="page" value="{{ page_obj.number }}">
+                            <input type="hidden" name="start_price" id="start_price" value="{{ start_price }}">
+                                <input type="hidden" name="end_price" id="end_price" value="{{ end_price }}">
+                            <button class="btn btn-success btn-block" onclick="filterProducts()">فیلتر</button>
+                        </form>
+                    </div>
                     <div class="shipping text-center"><!--shipping-->
                         <img src="images/home/shipping.jpg" alt="">
                     </div><!--/shipping-->
                     
                 </div>
             </div>
-            
         </div>
     </div>
 </section>

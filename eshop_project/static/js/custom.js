@@ -27,5 +27,17 @@ function fillParentId(parentId) {
     document.getElementById('comment_form').scrollIntoView({behavior: 'smooth'});
 }
 
-//  ajax => asynchronous javascript and xml
-//  json => javascript object notation
+// filter_form
+function filterProducts() {
+    const filterPrice = $('#sl2').val();
+    const start_price = filterPrice.split(',')[0];
+    const end_price = filterPrice.split(',')[1];
+    $('#start_price').val(start_price);
+    $('#end_price').val(end_price);
+    $('#filter_form').submit();
+}
+
+function fillPage(page) {
+    $('#page').val(page);
+    $('#filter_form').submit();
+}
