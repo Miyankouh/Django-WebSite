@@ -19,9 +19,3 @@ ul{
 .cursor-pointer{
     cursor: pointer;
 }
-
-
-.detail-image{
-    width: 268px !important;
-    height: 134px !important;
-}
