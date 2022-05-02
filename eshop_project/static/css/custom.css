@@ -19,3 +19,8 @@ ul{
 .cursor-pointer{
     cursor: pointer;
 }
+
+.gallery-image{
+    width: 85px;
+    height: 85px;
+}

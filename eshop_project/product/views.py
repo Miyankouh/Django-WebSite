@@ -6,7 +6,8 @@ from django.views.generic import ListView, DetailView
 from requests import request
 from site_module.models import SiteBanner
 from utils.http_service import get_client_ip
-from .models import Product, ProductBrand, ProductCategory, ProductVisit
+from utils.convertors import group_list
+from .models import Product, ProductBrand, ProductCategory, ProductGallery, ProductVisit
 
 class ProductListView(ListView):
     template_name = 'product/product_list.html'
@@ -59,7 +60,8 @@ class ProductDetailView(DetailView):
         favorite_product_id = request.session.get("product_favorites")
         context["is_favorite"] = favorite_product_id == str(loaded_product.id)
         context['banners'] = SiteBanner.objects.filter(is_active=True, position__iexact=SiteBanner.SiteBannerPosition.product_detail)
-        
+        context['product_galleries_group'] = group_list(list( ProductGallery.objects.filter(product_id=loaded_product.id).all()), 3)
+
         # Implement product hits
         user_ip = get_client_ip(self.request)
         user_id = None
