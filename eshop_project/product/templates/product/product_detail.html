@@ -6,6 +6,15 @@
     {{product.title}}
 {% endblock  %}
 
+{% block header_references %}
+    <link href="/static/lib/image-lightbox/css/lightbox.min.css" rel="stylesheet">
+{% endblock  %}
+
+{% block footer_references %}
+<script src="/static/lib/image-lightbox/js/lightbox.min.js"></script>
+{% comment %} <script src="/static/lib/image-lightbox/js/lightbox.plus.jquery.min.js"></script> {% endcomment %}
+{% endblock  %}
+
 {% block content %}
 <section>
     <div class="container">
@@ -22,11 +31,15 @@
                     <div class="col-sm-5">
                         <div class="view-product">
                             {% if product.image %}
-                                <img src="{{product.image.url}}" alt="">
+                                <img src="{{product.image.url}}" alt="" id="main_image">
                             {% else %}
-                                <img src="/static/images/product-details/1.jpg" alt="">
+                                <img src="/static/images/product-details/1.jpg" alt="" id="main_image">
                             {% endif %}
-                            <h3>بزرگنمایـی</h3>
+                            <h3>
+                                <a class="large-image" id="show_large_image_modal" href="{{ product.image.url }}" data-lightbox="product-image">
+                                    بزرگنمایی
+                                </a>
+                            </h3>
                         </div>
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
                             
@@ -35,7 +48,7 @@
                                     {% for group in product_galleries_group  %}
                                     <div class="item {% if forloop.first %}active{% endif %}">
                                         {% for gallery in group %}
-                                        <a href="">
+                                        <a onclick="showLargeImage('{{ gallery.image.url}}')">
                                             <img class="gallery-image" src="{{ gallery.image.url }}" alt="">
                                         </a>
                                         {% endfor %}
@@ -244,5 +257,7 @@
         </div>
     </div>
 </section>
-    
+
+
+
 {% endblock %}
