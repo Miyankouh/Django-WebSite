@@ -1,11 +1,11 @@
 {% load thumbnail %}
 
-<div class="col-sm-4">
+<div class="col-sm-{{ col_size }}">
     <div class="product-image-wrapper">
         <div class="single-products">
             <div class="productinfo text-center">
                 {% if product.image %}  
-                    {% thumbnail product.image "268x250" crop='center' qulity=80 as im %}
+                    {% thumbnail product.image "268x250" crop='center' qulity=90 as im %}
                         <img src="{{ im.url }}">
                     {% endthumbnail %}
                 {% else %}
