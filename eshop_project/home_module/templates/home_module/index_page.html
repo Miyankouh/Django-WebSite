@@ -1,6 +1,6 @@
 {% extends 'shared/_layout.html' %}
 {% load thumbnail %}
-
+{% load poll_extras %}
 {% block title %}
 فروشگاه من |صفحه اصلی 
 {% endblock  %}
@@ -68,7 +68,7 @@
                                                 {% thumbnail product.image "268x250" quality=90 crop='center' as im %}
                                                     <img src="{{ im.url }}">
                                                 {% endthumbnail %}
-                                                <h2>{{product.price}}</h2>
+                                                <h2>{{product.price | three_digit_currency}}</h2>
                                                 <p>{{product.title }}</p>
                                                 <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خرید</a>
                                             </div>
@@ -92,7 +92,7 @@
             
             <div class="col-sm-12 padding-right">
                 <div class="features_items"><!--RetailSale_items-->
-                    <a href="shop-2.html"><h2 class="title text-center">فـروش خـرده</h2></a>
+                    <a href="shop-2.html"><h2 class="title text-center">پرفروش ترین محصولات</h2></a>
                     <div id="new-item-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         {% for group in most_visit_products %}
@@ -106,13 +106,13 @@
                                                     {% thumbnail product.image "268x250" quality=90 crop='center' as im %}
                                                     <img src="{{ im.url }}">
                                                     {% endthumbnail %}
-                                                    <h2>{{product.price }}</h2>
+                                                    <h2>{{product.price | three_digit_currency }}</h2>
                                                     <p>{{product.title }}</p>
                                                     <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
                                                 </div>
                                                 <div class="product-overlay">
                                                     <div class="overlay-content">
-                                                        <h2>2.500.000 R</h2>
+                                                        <h2>{{product.price | three_digit_currency}}</h2>
                                                         <p>{{product.title }}</p>
                                                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
                                                     </div>
