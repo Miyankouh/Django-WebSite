@@ -1,33 +1,29 @@
 function sendArticleComment(articleId) {
-
     var comment = $('#commentText').val();
     var parentId = $('#parent_id').val();
-
+    console.log(parentId);
     $.get('/articles/add-article-comment', {
         article_comment: comment,
         article_id: articleId,
         parent_id: parentId
     }).then(res => {
-        console.log(res);
         $('#comments_area').html(res);
         $('#commentText').val('');
         $('#parent_id').val('');
-        
-        if(parentId !== null && parentId !== '') {
-            document.getElementById('single_comment_box_'+ parentId).scrollIntoView({behavior: 'smooth'});
-        }else{
-            document.getElementById('comments_area').scrollIntoView({behavior: 'smooth'});
-        }
 
+        if (parentId !== null && parentId !== '') {
+            document.getElementById('single_comment_box_' + parentId).scrollIntoView({behavior: "smooth"});
+        } else {
+            document.getElementById('comments_area').scrollIntoView({behavior: "smooth"});
+        }
     });
 }
 
 function fillParentId(parentId) {
     $('#parent_id').val(parentId);
-    document.getElementById('comment_form').scrollIntoView({behavior: 'smooth'});
+    document.getElementById('comment_form').scrollIntoView({behavior: "smooth"});
 }
 
-// filter_form
 function filterProducts() {
     const filterPrice = $('#sl2').val();
     const start_price = filterPrice.split(',')[0];
@@ -49,5 +45,7 @@ function showLargeImage(imageSrc) {
 
 function addProductToOrder(productId) {
     const productCount = $('#product-count').val();
-    $.get('/order/add-to-order?product_id=' + productId + '&count=' + productCount).then(res=>{console.log(res);});
+    $.get('/order/add-to-order?product_id=' + productId + '&count=' + productCount).then(res => {
+        console.log(res);
+    });
 }
