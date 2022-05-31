@@ -1,21 +1,21 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
-from django.views.generic.list import ListView
 from django.views.generic import DetailView
+from django.views.generic.list import ListView
 from article_module.models import Article, ArticleCategory, ArticleComment
 
 
-class ArticleListView(ListView):
+class ArticlesListView(ListView):
     model = Article
     paginate_by = 4
     template_name = 'article_module/articles_page.html'
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ArticleListView, self).get_context_data(*args, **kwargs)
+        context = super(ArticlesListView, self).get_context_data(*args, **kwargs)
         return context
 
     def get_queryset(self):
-        query = super(ArticleListView, self).get_queryset()
+        query = super(ArticlesListView, self).get_queryset()
         query = query.filter(is_active=True)
         category_name = self.kwargs.get('category')
         if category_name is not None:
@@ -31,12 +31,12 @@ class ArticleDetailView(DetailView):
         query = super(ArticleDetailView, self).get_queryset()
         query = query.filter(is_active=True)
         return query
-    
+
     def get_context_data(self, **kwargs):
         context = super(ArticleDetailView, self).get_context_data()
         article: Article = kwargs.get('object')
-        context['comments'] = ArticleComment.objects.filter(article_id=article.id, parent_id=None).order_by('-create_date').prefetch_related('articlecomment_set')
-        context['comments_count'] = ArticleComment.objects.filter(article_id=article.id, ).count()
+        context['comments'] = ArticleComment.objects.filter(article_id=article.id, parent=None).order_by('-create_date').prefetch_related('articlecomment_set')
+        context['comments_count'] = ArticleComment.objects.filter(article_id=article.id).count()
         return context
 
 
@@ -58,8 +58,10 @@ def add_article_comment(request: HttpRequest):
         new_comment = ArticleComment(article_id=article_id, text=article_comment, user_id=request.user.id, parent_id=parent_id)
         new_comment.save()
         context = {
-            'comments': ArticleComment.objects.filter(article_id=article_id, parent_id=None).order_by('-create_date').prefetch_related('articlecomment_set'),
+            'comments': ArticleComment.objects.filter(article_id=article_id, parent=None).order_by('-create_date').prefetch_related('articlecomment_set'),
             'comments_count': ArticleComment.objects.filter(article_id=article_id).count()
         }
+
         return render(request, 'article_module/includes/article_comments_partial.html', context)
-    return HttpResponse('hello')
+
+    return HttpResponse('response')

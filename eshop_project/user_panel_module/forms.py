@@ -1,6 +1,7 @@
 from django import forms
 from django.core import validators
 from django.core.exceptions import ValidationError
+
 from account_module.models import User
 
 
@@ -11,29 +12,30 @@ class EditProfileModelForm(forms.ModelForm):
         widgets = {
             'first_name': forms.TextInput(attrs={
                 'class': 'form-control'
-                }),
+            }),
             'last_name': forms.TextInput(attrs={
                 'class': 'form-control'
-                }),
+            }),
             'avatar': forms.FileInput(attrs={
                 'class': 'form-control'
-                }),
+            }),
             'address': forms.Textarea(attrs={
                 'class': 'form-control',
-                'rows': '3', 
-                }),
+                'rows': 3,
+            }),
             'about_user': forms.Textarea(attrs={
                 'class': 'form-control',
-                'rows': '6',
-                })
+                'rows': 6,
+                'id': 'message'
+            })
         }
 
         labels = {
-            'first_name': 'نام ',
-            'last_name': ' نام خانوادگی  ',
-            'avatar': ' تصویر پروفایل ', 
-            'address': 'ادرس شما',
-            'about_user': ' درباره شخص'
+            'first_name': 'نام',
+            'last_name': 'نام خانوادگی',
+            'avatar': 'تصویر پروفایل',
+            'address': 'آدرس',
+            'about_user': 'درباره شخص',
         }
 
 
@@ -80,4 +82,3 @@ class ChangePasswordForm(forms.Form):
             return confirm_password
 
         raise ValidationError('کلمه عبور و تکرار کلمه عبور مغایرت دارند')
-        

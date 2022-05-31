@@ -16,7 +16,7 @@ class SiteBannerAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.SiteSetting)
-admin.site.register(models.Slider, SliderAdmin)
 admin.site.register(models.FooterLinkBox)
+admin.site.register(models.Slider, SliderAdmin)
 admin.site.register(models.FooterLink, FooterLinkAdmin)
 admin.site.register(models.SiteBanner, SiteBannerAdmin)

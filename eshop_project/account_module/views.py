@@ -1,21 +1,22 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.views import View
 from .models import User
 from django.utils.crypto import get_random_string
 from django.http import Http404, HttpRequest
 from django.contrib.auth import login, logout
-from account_module.forms import RegisterForm, LoginForm, ForgotPasswordForm, ResetPasswordForm
 from utils.email_service import send_email
+
+from account_module.forms import RegisterForm, LoginForm, ForgotPasswordForm, ResetPasswordForm
 
 
 class RegisterView(View):
     def get(self, request):
         register_form = RegisterForm()
-        context ={
+        context = {
             'register_form': register_form
-        } 
+        }
+
         return render(request, 'account_module/register.html', context)
 
     def post(self, request):
@@ -58,22 +59,24 @@ class ActivateAccountView(View):
                 # todo: show your account was activated message to user
                 pass
 
+        raise Http404
+
 
 class LoginView(View):
     def get(self, request):
         login_form = LoginForm()
-        context ={
+        context = {
             'login_form': login_form
-        } 
+        }
+
         return render(request, 'account_module/login.html', context)
 
     def post(self, request: HttpRequest):
         login_form = LoginForm(request.POST)
-
         if login_form.is_valid():
             user_email = login_form.cleaned_data.get('email')
             user_pass = login_form.cleaned_data.get('password')
-            user:  User = User.objects.filter(email__iexact=user_email).first()
+            user: User = User.objects.filter(email__iexact=user_email).first()
             if user is not None:
                 if not user.is_active:
                     login_form.add_error('email', 'حساب کاربری شما فعال نشده است')
@@ -83,13 +86,14 @@ class LoginView(View):
                         login(request, user)
                         return redirect(reverse('user_panel_dashboard'))
                     else:
-                        login_form.add_error('email', 'مشخصات وارد شده اشتباه میباشد')
+                        login_form.add_error('email', 'کلمه عبور اشتباه است')
             else:
-                login_form.add_error('email', 'کاربری با مشخصات وارد شده یافت نشد.')
-        
-        context ={
+                login_form.add_error('email', 'کاربری با مشخصات وارد شده یافت نشد')
+
+        context = {
             'login_form': login_form
-        } 
+        }
+
         return render(request, 'account_module/login.html', context)
 
 
@@ -151,4 +155,3 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect(reverse('login_page'))
-        

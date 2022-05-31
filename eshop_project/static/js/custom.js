@@ -46,6 +46,38 @@ function showLargeImage(imageSrc) {
 function addProductToOrder(productId) {
     const productCount = $('#product-count').val();
     $.get('/order/add-to-order?product_id=' + productId + '&count=' + productCount).then(res => {
-        console.log(res);
+        Swal.fire({
+            title: 'اعلان',
+            text: res.text,
+            icon: res.icon,
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: res.confirm_button_text
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/login';
+            }
+        })
+
+
+        /*if (res.status === 'success') {
+            Swal.fire({
+                title: 'اعلان',
+                text: "محصول مورد نظر با موفقیت به سبد خرید شما اضافه شد",
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'باشه ممنون'
+            });
+        } else if (res.status === 'not_found') {
+            Swal.fire({
+                title: 'اعلان',
+                text: "محصول مورد نظر یافت نشد",
+                icon: 'error',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'باشه ممنون'
+            });
+        }*/
     });
 }

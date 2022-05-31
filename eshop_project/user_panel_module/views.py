@@ -8,26 +8,23 @@ from .forms import EditProfileModelForm, ChangePasswordForm
 from django.contrib.auth import logout
 
 
-# To see the dashboard page
 class UserPanelDashboardPage(TemplateView):
     template_name = 'user_panel_module/user_panel_dashboard_page.html'
 
 
-# Edit user information
 class EditUserProfilePage(View):
     def get(self, request: HttpRequest):
         current_user = User.objects.filter(id=request.user.id).first()
         edit_form = EditProfileModelForm(instance=current_user)
         context = {
             'form': edit_form,
-            'current_user': current_user,
+            'current_user': current_user
         }
-        return render(request, 'user_panel_module/edit_panel_profile_page.html', context)
+        return render(request, 'user_panel_module/edit_profile_page.html', context)
 
     def post(self, request: HttpRequest):
         current_user = User.objects.filter(id=request.user.id).first()
-        edit_form = EditProfileModelForm(
-            request.POST, request.FILES, instance=current_user)
+        edit_form = EditProfileModelForm(request.POST, request.FILES, instance=current_user)
         if edit_form.is_valid():
             edit_form.save(commit=True)
 
@@ -35,10 +32,9 @@ class EditUserProfilePage(View):
             'form': edit_form,
             'current_user': current_user
         }
-        return render(request, 'user_panel_module/edit_panel_profile_page.html', context)
+        return render(request, 'user_panel_module/edit_profile_page.html', context)
 
 
-# Change user password
 class ChangePasswordPage(View):
     def get(self, request: HttpRequest):
         context = {
