@@ -54,7 +54,7 @@ function addProductToOrder(productId) {
             confirmButtonColor: '#3085d6',
             confirmButtonText: res.confirm_button_text
         }).then((result) => {
-            if (result.isConfirmed) {
+            if (result.isConfirmed && res.status === 'not_auth') {
                 window.location.href = '/login';
             }
         })
