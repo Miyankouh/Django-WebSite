@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block content %}
+<div id="order-detail-content">
     <section id="cart_items">
         <div class="container">
             <div class="breadcrumbs">
@@ -30,10 +31,10 @@
                     {% for detail in order.orderdetail_set.all %}
                         <tr>
                             <td class="cart_product">
-                                <a href=""><img src="{{ detail.product.image.url }}" width="75" alt=""></a>
+                                <a href=""><img class="myim" src="{{ detail.product.image.url }}" alt=""></a>
                             </td>
                             <td class="cart_description">
-                                <h4><a href="">{{ detail.product.title }}</a></h4>
+                                <h4><a class="one-line-text"  href="">{{ detail.product.title }}</a></h4>
                                 <p>شناسـه : 01010101</p>
                             </td>
                             <td class="cart_price">
@@ -53,18 +54,17 @@
                                 {# <p class="cart_total_price"> {{ detail.get_total_price|three_digits_currency }} </p>#}
                             </td>
                             <td class="cart_delete">
-                                <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                                <a class="cart_quantity_delete" onclick="removeOrderDetail({{ detail.id }})"><i class="fa fa-times"></i></a>
                             </td>
                         </tr>
                     {% endfor %}
-
-
+    
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
-
+    
     <section id="do_action">
         <div class="container">
             <div class="heading">
@@ -84,4 +84,5 @@
             </div>
         </div>
     </section>
+</div>
 {% endblock %}
