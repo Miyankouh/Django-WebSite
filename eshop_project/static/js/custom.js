@@ -57,27 +57,14 @@ function addProductToOrder(productId) {
             if (result.isConfirmed && res.status === 'not_auth') {
                 window.location.href = '/login';
             }
-        })
+        });
+    });
+}
 
-
-        /*if (res.status === 'success') {
-            Swal.fire({
-                title: 'اعلان',
-                text: "محصول مورد نظر با موفقیت به سبد خرید شما اضافه شد",
-                icon: 'success',
-                showCancelButton: false,
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'باشه ممنون'
-            });
-        } else if (res.status === 'not_found') {
-            Swal.fire({
-                title: 'اعلان',
-                text: "محصول مورد نظر یافت نشد",
-                icon: 'error',
-                showCancelButton: false,
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'باشه ممنون'
-            });
-        }*/
+function removeOrderDetail(detailId) {
+    $.get('/user/remove-order-detail?detail_id=' + detailId).then(res => {
+        if(res.status === 'success'){
+            $('#order-detail-content').html(res.body);
+        }
     });
 }

@@ -2737,3 +2737,17 @@ h2.title {
 }
 
 
+/* my class */
+.one-line-text {
+    text-align: right;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 280px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.myim {
+    width: 100px;
+}
