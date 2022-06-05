@@ -63,7 +63,18 @@ function addProductToOrder(productId) {
 
 function removeOrderDetail(detailId) {
     $.get('/user/remove-order-detail?detail_id=' + detailId).then(res => {
-        if(res.status === 'success'){
+        if (res.status === 'success') {
+            $('#order-detail-content').html(res.body);
+        }
+    });
+}
+
+
+// detail id => order detail id
+// state => increase , decrease
+function changeOrderDetailCount(detailId, state) {
+    $.get('/user/change-order-detail?detail_id=' + detailId + '&state=' + state).then(res => {
+        if (res.status === 'success') {
             $('#order-detail-content').html(res.body);
         }
     });
