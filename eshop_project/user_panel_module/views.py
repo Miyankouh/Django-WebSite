@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from account_module.models import User
 from order_module.models import Order, OrderDetail
 from .forms import EditProfileModelForm, ChangePasswordForm
@@ -39,6 +39,19 @@ class EditUserProfilePage(View):
             'current_user': current_user
         }
         return render(request, 'user_panel_module/edit_profile_page.html', context)
+
+
+@method_decorator(login_required, name='dispatch')
+class MyShopping(ListView):
+    model = Order
+    template_name = 'user_panel_module/user_shopping.html'
+    # paginate_by = 5
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        request: HttpRequest = self.request
+        queryset = queryset.filter(user_id=request.user.id, is_paid=True)
+        return queryset
 
 
 @method_decorator(login_required, name='dispatch')
