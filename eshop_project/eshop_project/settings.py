@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'eshop_project.wsgi.application'
 
 AUTH_USER_MODEL = 'account_module.User'
 
-LOGIN_URL = '/login' # My route for those who have not logged in
+LOGIN_URL = '/login'  # My route for those who have not logged in
 
 DATABASES = {
     'default': {

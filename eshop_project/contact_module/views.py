@@ -14,7 +14,8 @@ class ContactUsView(CreateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        setting: SiteSetting = SiteSetting.objects.filter(is_main_setting=True).first()
+        setting: SiteSetting = SiteSetting.objects.filter(
+            is_main_setting=True).first()
         context['site_setting'] = setting
 
         return context

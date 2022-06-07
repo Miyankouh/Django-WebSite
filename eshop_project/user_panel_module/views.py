@@ -30,7 +30,8 @@ class EditUserProfilePage(View):
 
     def post(self, request: HttpRequest):
         current_user = User.objects.filter(id=request.user.id).first()
-        edit_form = EditProfileModelForm(request.POST, request.FILES, instance=current_user)
+        edit_form = EditProfileModelForm(
+            request.POST, request.FILES, instance=current_user)
         if edit_form.is_valid():
             edit_form.save(commit=True)
 
@@ -65,7 +66,8 @@ class ChangePasswordPage(View):
     def post(self, request: HttpRequest):
         form = ChangePasswordForm(request.POST)
         if form.is_valid():
-            current_user: User = User.objects.filter(id=request.user.id).first()
+            current_user: User = User.objects.filter(
+                id=request.user.id).first()
             if current_user.check_password(form.cleaned_data.get('current_password')):
                 current_user.set_password(form.cleaned_data.get('password'))
                 current_user.save()
@@ -87,7 +89,8 @@ def user_panel_menu_component(request: HttpRequest):
 
 @login_required
 def user_basket(request: HttpRequest):
-    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(is_paid=False, user_id=request.user.id)
+    current_order, created = Order.objects.prefetch_related(
+        'orderdetail_set').get_or_create(is_paid=False, user_id=request.user.id)
     total_amount = current_order.calculate_total_price()
 
     context = {
@@ -105,14 +108,16 @@ def remove_order_detail(request):
             'status': 'not_found_detail_id'
         })
 
-    deleted_count, deleted_dict = OrderDetail.objects.filter(id=detail_id, order__is_paid=False, order__user_id=request.user.id).delete()
+    deleted_count, deleted_dict = OrderDetail.objects.filter(
+        id=detail_id, order__is_paid=False, order__user_id=request.user.id).delete()
 
     if deleted_count == 0:
         return JsonResponse({
             'status': 'detail_not_found'
         })
 
-    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(is_paid=False, user_id=request.user.id)
+    current_order, created = Order.objects.prefetch_related(
+        'orderdetail_set').get_or_create(is_paid=False, user_id=request.user.id)
     total_amount = current_order.calculate_total_price()
 
     context = {
@@ -134,7 +139,8 @@ def change_order_detail_count(request: HttpRequest):
             'status': 'not_found_detail_or_state'
         })
 
-    order_detail = OrderDetail.objects.filter(id=detail_id, order__user_id=request.user.id, order__is_paid=False).first()
+    order_detail = OrderDetail.objects.filter(
+        id=detail_id, order__user_id=request.user.id, order__is_paid=False).first()
 
     if order_detail is None:
         return JsonResponse({
@@ -155,7 +161,8 @@ def change_order_detail_count(request: HttpRequest):
             'status': 'state_invalid'
         })
 
-    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(is_paid=False, user_id=request.user.id)
+    current_order, created = Order.objects.prefetch_related(
+        'orderdetail_set').get_or_create(is_paid=False, user_id=request.user.id)
     total_amount = current_order.calculate_total_price()
 
     context = {
@@ -169,10 +176,11 @@ def change_order_detail_count(request: HttpRequest):
 
 
 def my_shopping_detail(request: HttpRequest, order_id):
-    order = Order.objects.prefetch_related('orderdetail_set').filter(id=order_id, user_id=request.user.id).first()
+    order = Order.objects.prefetch_related('orderdetail_set').filter(
+        id=order_id, user_id=request.user.id).first()
     if order is None:
         raise Http404('سبد خرید مورد نظر یافت نشد')
-    
+
     return render(request, 'user_panel_module/user_shopping_detail.html', {
         'order': order
     })

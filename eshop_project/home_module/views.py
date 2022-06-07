@@ -13,11 +13,14 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         sliders = Slider.objects.filter(is_active=True)
         context['sliders'] = sliders
-        latest_products = Product.objects.filter(is_active=True, is_delete=False).order_by('-id')[:12]
-        most_visit_products = Product.objects.filter(is_active=True, is_delete=False).annotate(visit_count=Count('productvisit')).order_by('-visit_count')[:12]
+        latest_products = Product.objects.filter(
+            is_active=True, is_delete=False).order_by('-id')[:12]
+        most_visit_products = Product.objects.filter(is_active=True, is_delete=False).annotate(
+            visit_count=Count('productvisit')).order_by('-visit_count')[:12]
         context['latest_products'] = group_list(latest_products)
         context['most_visit_products'] = group_list(most_visit_products)
-        categories = list(ProductCategory.objects.annotate(products_count=Count('product_categories')).filter(is_active=True, is_delete=False, products_count__gt=0)[:6])
+        categories = list(ProductCategory.objects.annotate(products_count=Count(
+            'product_categories')).filter(is_active=True, is_delete=False, products_count__gt=0)[:6])
         categories_products = []
         for category in categories:
             item = {
@@ -32,7 +35,8 @@ class HomeView(TemplateView):
 
 
 def site_header_component(request):
-    setting: SiteSetting = SiteSetting.objects.filter(is_main_setting=True).first()
+    setting: SiteSetting = SiteSetting.objects.filter(
+        is_main_setting=True).first()
     context = {
         'site_setting': setting
     }
@@ -40,7 +44,8 @@ def site_header_component(request):
 
 
 def site_footer_component(request):
-    setting: SiteSetting = SiteSetting.objects.filter(is_main_setting=True).first()
+    setting: SiteSetting = SiteSetting.objects.filter(
+        is_main_setting=True).first()
     footer_link_boxes = FooterLinkBox.objects.all()
     context = {
         'site_setting': setting,
@@ -54,6 +59,7 @@ class AboutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(AboutView, self).get_context_data(**kwargs)
-        site_setting: SiteSetting = SiteSetting.objects.filter(is_main_setting=True).first()
+        site_setting: SiteSetting = SiteSetting.objects.filter(
+            is_main_setting=True).first()
         context['site_setting'] = site_setting
         return context
