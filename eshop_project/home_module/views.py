@@ -4,6 +4,7 @@ from django.views.generic.base import TemplateView
 from product_module.models import Product, ProductCategory
 from site_module.models import SiteSetting, FooterLinkBox, Slider
 from utils.convertors import group_list
+from django.db.models import Sum
 
 
 class HomeView(TemplateView):
@@ -29,8 +30,12 @@ class HomeView(TemplateView):
                 'products': list(category.product_categories.all()[:4])
             }
             categories_products.append(item)
-
         context['categories_products'] = categories_products
+
+        most_bought_products = Product.objects.filter(orderdetail__order__is_paid=True).annotate(order_count=Sum(
+            'orderdetail__count')).order_by('-order_count')[:12]
+        context['most_bought_products'] = group_list(most_bought_products)
+
         return context
 
 
