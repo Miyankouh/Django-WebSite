@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_render_partial',
     'sorl.thumbnail',
     'jalali_date',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
