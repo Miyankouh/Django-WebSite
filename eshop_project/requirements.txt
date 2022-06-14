@@ -7,6 +7,7 @@ charset-normalizer==2.0.12
 Django==4.0.4
 django-jalali-date==1.0.1
 django-render-partial==0.4
+django-widget-tweaks==1.4.12
 idna==3.3
 isodate==0.6.1
 jdatetime==4.1.0
